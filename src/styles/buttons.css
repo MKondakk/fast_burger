@@ -1,0 +1,29 @@
+
+#order-button {
+    background-color: #ffcc00;
+    color: white;
+    /* Make this a variable:*/
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #order-button:hover {
+    background-color: #fde481;
+  }
+  
+  #login-button {
+    text-decoration: underline;
+    background-color: transparent;
+    color: black;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #login-button:hover {
+    color: #fbca06;
+  }
+

@@ -1,17 +1,20 @@
 import React from "react";
 import { Advertisement } from "../components/Advertisement";
 import { Welcome } from "../components/Welcome";
-import {NavigationButton} from '../components/NavigationButton';
+import { OrderButton, LoginButton } from "../components/NavigationButtons";
 import "../styles/welcome_page.css";
-import "../styles/background.css";
+import "../styles/App.css";
 
 const WelcomePage: React.FC = () => {
   return (
-      <div>
+    <div id="welcome-container">
       <Advertisement />
       <Welcome />
-      <NavigationButton />
+      <div className="button-container">
+        <OrderButton />
+        <LoginButton />
       </div>
+    </div>
   );
 };
 

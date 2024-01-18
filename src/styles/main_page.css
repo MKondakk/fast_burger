@@ -1,0 +1,29 @@
+.main-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px;
+}
+.main-header h1 {
+  margin: auto;
+}
+.menu-page {
+  padding: 3%;
+  margin: 50px;
+  border: 10px solid #fdc300;
+  background-color: white;
+  max-width: 70%;
+  width: 100%;
+  text-align: center;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+.product-item:hover {
+    background-color: rgba(128, 128, 128, 0.214);
+}
