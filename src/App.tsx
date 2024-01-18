@@ -3,7 +3,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { WelcomePage } from "./pages/WelcomePage";
-import { OrderPage } from "./pages/OrderPage";
+import { OrderPage } from "./pages/MenuPage";
 import { LoginPage } from "./pages/LoginPage";
 
 const App: React.FC = () => {

@@ -3,16 +3,15 @@ import { Advertisement } from "../components/Advertisement";
 import { Welcome } from "../components/Welcome";
 import {NavigationButton} from '../components/NavigationButton';
 import "../styles/welcome_page.css";
+import "../styles/background.css";
 
 const WelcomePage: React.FC = () => {
   return (
-    <div id="background">
-      <div id="welcome-container">
+      <div>
       <Advertisement />
       <Welcome />
       <NavigationButton />
       </div>
-    </div>
   );
 };
 
