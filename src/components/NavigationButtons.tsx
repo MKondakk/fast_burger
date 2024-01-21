@@ -5,7 +5,7 @@ import "../styles/buttons.css";
 const OrderButton: React.FC = () => {
   return (
     <Link to="/menu">
-      <button id="order-button">Place Order</button>
+      <button className="big-button yellow-button">Place Order</button>
     </Link>
   );
 };
@@ -13,11 +13,9 @@ const OrderButton: React.FC = () => {
 const LoginButton: React.FC = () => {
   return (
     <Link to="/login">
-      <button id="login-button">Login</button>
+      <button className="big-button underline-button">Login</button>
     </Link>
   );
 };
 
 export { OrderButton, LoginButton };
-
-
