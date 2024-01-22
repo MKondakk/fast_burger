@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { OrderContext } from "../context/OrderContext";
 import "../styles/buttons.css";
 
 const OrderButton: React.FC = () => {
@@ -18,4 +19,22 @@ const LoginButton: React.FC = () => {
   );
 };
 
-export { OrderButton, LoginButton };
+const CartButton: React.FC = () => {
+  const { order } = useContext(OrderContext)!;
+  
+  return (
+    <Link to="/cart">
+      <button className="img-button">
+        <img
+          src={
+            order.length > 0
+              ? "images/cart_full.png"
+              : "images/cart_empty.png"
+          }
+          alt="Cart"
+        />
+      </button>
+    </Link>
+  );
+};
+export { OrderButton, LoginButton, CartButton };

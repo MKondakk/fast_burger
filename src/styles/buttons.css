@@ -22,7 +22,7 @@
 }
 
 .underline-button:hover {
-  color: #fbca06;
+  color: rgb(251, 202, 6);
 }
 .small-button {
   border: none;
@@ -30,4 +30,19 @@
   font-size: 1rem;
   padding: 5px 10px;
   margin: 5px;
+}
+.img-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.img-button img {
+  width: 40px;
+  height: 40px; 
+}
+.small-button[disabled] {
+  cursor: not-allowed;
+  background-color: rgba(0, 0, 0, 0.15);
+
 }

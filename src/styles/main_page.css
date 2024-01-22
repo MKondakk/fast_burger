@@ -38,3 +38,32 @@
 .product-item:hover {
     background-color: rgba(128, 128, 128, 0.214);
 }
+
+.choose-place-container {
+  display: flex;
+  gap: 10px; 
+  padding-bottom: 10px;
+}
+
+.radio-label input {
+  position: absolute;
+  opacity: 0;
+}
+
+.radio-label {
+  position: relative;
+  cursor: pointer;
+}
+
+.radio-label .image-container {
+  position: relative;
+}
+
+.radio-label img {
+  width: 100px;
+  height: 100px;
+}
+
+.radio-label.selected {
+  background: rgba(0, 0, 0, 0.15); 
+}

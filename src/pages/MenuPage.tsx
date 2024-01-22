@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { LoginButton } from "../components/NavigationButtons";
+import React, { useEffect, useState, useCallback, useContext } from "react";
+import { LoginButton, CartButton } from "../components/NavigationButtons";
 import { ProductList } from "../components/ProductList";
 import "../styles/App.css";
 import "../styles/main_page.css";
 import { Product } from "../components/ProductItem";
+import { ChoosePlaceModal } from "../components/ChoosePlaceModal";
+import { OrderContext, PlaceType } from "../context/OrderContext";
+import { useNavigate } from "react-router-dom";
 
 const MenuPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -11,6 +14,9 @@ const MenuPage: React.FC = () => {
   const [filterOption, setFilterOption] = useState<string>("");
   const [products, setProducts] = useState<Product[]>([]);
   const [productTypes, setProductTypes] = useState([]);
+  const { chosenPlace, setPlace } = useContext(OrderContext)!;
+  const [modalVisible, setModalVisible] = useState(!chosenPlace);
+  const navigate = useNavigate();
 
   const fetchProducts = useCallback(
     async (searchTerm?: string, sortOption?: string, filterOption?: string) => {
@@ -63,10 +69,21 @@ const MenuPage: React.FC = () => {
   //   fetchProducts();
   // }, [fetchProducts]);
 
-
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
+
+  const handleSave = (place: PlaceType) => {
+    setPlace(place);
+    setModalVisible(false);
+    
+  };
+
+  const handlePlaceModalClose = () => {
+    setModalVisible(false);
+    navigate('/');
+  };
+  
 
   return (
     <div className="menu-page">
@@ -106,9 +123,15 @@ const MenuPage: React.FC = () => {
             Apply
           </button>
         </div>
+        <CartButton />
         <LoginButton />
       </div>
       <ProductList products={products} />
+      <ChoosePlaceModal
+        visible={modalVisible}
+        onSave={handleSave}
+        onClose={handlePlaceModalClose}
+      />
     </div>
   );
 };

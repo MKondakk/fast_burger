@@ -8,10 +8,11 @@ export interface BaseModalProps {
   onClose: () => void;
   onSave: () => void;
   visible: boolean;
+  disableSave?: boolean; 
 }
 
 const BaseModal = (props: BaseModalProps): JSX.Element => {
-  const { title, children, onClose, onSave, visible } = props;
+  const { title, children, onClose, onSave, visible, disableSave } = props;
 
   const handleClose = useCallback(() => {
     onClose();
@@ -31,7 +32,7 @@ const BaseModal = (props: BaseModalProps): JSX.Element => {
         <button className="small-button yellow-button" onClick={handleClose}>
           Close
         </button>
-        <button className="small-button yellow-button" onClick={handleSave}>
+        <button className="small-button yellow-button" onClick={handleSave}  disabled={disableSave}>
           Save
         </button>
       </div>

@@ -12,6 +12,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/cart" element={<LoginPage />} />
         <Route path="/" element={<WelcomePage />} />
       </Routes>
     </BrowserRouter>
