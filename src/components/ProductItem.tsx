@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState } from "react";
 import { EditProductModal } from "./EditProductModal";
 import "../styles/buttons.css";
-import { OrderContext, OrderItem } from "../context/OrderContext";
+import { OrderContext, IOrderItem } from "../context/OrderContext";
 
 export interface Product {
   _id: string;
@@ -15,7 +15,7 @@ interface ProductItemProps {
   product: Product;
 }
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
-  const { addToOrder, order } = useContext(OrderContext)!;
+  const { addToOrder } = useContext(OrderContext)!;
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -28,18 +28,12 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   }, []);
 
   const handleEditSave = useCallback(
-    (modifications: Record<string, boolean>, quantity: number) => {
-      const newProduct: OrderItem = {
-        product,
-        modifications,
-        quantity,
-      };
-
-      addToOrder(newProduct);
+    (orderItem: IOrderItem) => {
+      addToOrder(orderItem);
 
       handleEditClose();
     },
-    [addToOrder, handleEditClose, product]
+    [addToOrder, handleEditClose]
   );
 
   return (
@@ -56,7 +50,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
       </div>
 
       <EditProductModal
-        product={product}
+        orderItem={{modifications: {}, product, quantity: 1}}
         onSave={handleEditSave}
         onClose={handleEditClose}
         visible={isEditing}

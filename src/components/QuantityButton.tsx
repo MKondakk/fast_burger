@@ -1,40 +1,29 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import "../styles/buttons.css";
 
 export interface QuantityButtonProps {
+  value: number;
   onChange: (value: number) => void;
 }
 
-const QuantityButton = (props: QuantityButtonProps): JSX.Element => {
-  const [value, setValue] = useState(1);
+const QuantityButton: React.FC<QuantityButtonProps> = ({ value, onChange }) => {
+  const handleIncrease = useCallback(() => {
+    onChange(value + 1);
+  }, [onChange, value]);
 
-  const handleIncrease = () => {
-    const newValue = value + 1;
-    setValue(newValue);
-    props.onChange(newValue);
-  };
-
-  const handleDecrease = () => {
+  const handleDecrease = useCallback(() => {
     if (value > 1) {
-      const newValue = value - 1;
-      setValue(newValue);
-      props.onChange(newValue);
+      onChange(value - 1);
     }
-  };
+  }, [onChange, value]);
 
   return (
     <div>
-      <button
-        className="small-button"
-        onClick={handleDecrease}
-      >
+      <button className="small-button" onClick={handleDecrease}>
         -
       </button>
       <span>{value}</span>
-      <button
-        className="small-button"
-        onClick={handleIncrease}
-      >
+      <button className="small-button" onClick={handleIncrease}>
         +
       </button>
     </div>

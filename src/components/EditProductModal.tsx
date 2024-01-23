@@ -1,46 +1,49 @@
 import { useCallback, useState, useEffect } from "react";
 import { BaseModal, BaseModalProps } from "./BaseModal";
-import { Product } from "./ProductItem";
 import { QuantityButton } from "./QuantityButton";
 import "../styles/main_page.css";
+import { IOrderItem } from "../context/OrderContext";
 
 export interface EditProductModalProps
   extends Pick<BaseModalProps, "onClose" | "visible"> {
-  product: Product;
-  onSave: (modifications: Record<string, boolean>, quantity: number) => void;
+  orderItem: IOrderItem;
+  onSave: (orderItem: IOrderItem) => void;
 }
 
 const EditProductModal = (props: EditProductModalProps): JSX.Element => {
-  const { product, visible, onClose, onSave } = props;
+  const { orderItem, visible, onClose, onSave } = props;
 
   const [modifications, setModifications] = useState<string[]>([]);
 
   const [selectedModifications, setSelectedModifications] = useState<
     Record<string, boolean>
-  >({});
-  const [quantity, setQuantity] = useState(1);
+  >(orderItem.modifications || {});
+  const [quantity, setQuantity] = useState(orderItem.quantity || 1);
 
   const fetchModifications = useCallback(async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/modifications/${product.type}`
+        `http://localhost:5000/modifications/${orderItem.product.type}`
       );
       const data = await response.json();
       setModifications(data.modifications || []);
     } catch (error) {
       console.error("Error fetching modifications:", error);
     }
-  }, [product.type]);
-
-  useEffect(() => {
-    if (visible) {
-      fetchModifications();
-    }
-  }, [fetchModifications, visible]);
+  }, [orderItem.product.type]);
 
   const handleSave = useCallback(() => {
-    onSave(selectedModifications, quantity);
-  }, [onSave, quantity, selectedModifications]);
+    const updatedItem: IOrderItem = {
+      product: orderItem.product,
+      modifications: selectedModifications,
+      quantity,
+    };
+
+    onSave(updatedItem);
+
+    setQuantity(1);
+    setSelectedModifications({});
+  }, [onSave, orderItem.product, quantity, selectedModifications]);
 
   const handleCheckboxChange = useCallback((modification: string) => {
     setSelectedModifications((prevSelected) => ({
@@ -49,13 +52,20 @@ const EditProductModal = (props: EditProductModalProps): JSX.Element => {
     }));
   }, []);
 
-  const handleQuantityChange = useCallback((value: number) => {
-    setQuantity(value);
-  }, []);
+  useEffect(() => {
+    if (visible) {
+      fetchModifications();
+    }
+
+    return () => {
+      // setSelectedModifications({});
+      // setQuantity(1);
+    };
+  }, [fetchModifications, visible]);
 
   return (
     <BaseModal
-      title={`Customize  ${product.name}`}
+      title={`Customize  ${orderItem.product.name}`}
       onClose={onClose}
       onSave={handleSave}
       visible={visible}
@@ -67,7 +77,7 @@ const EditProductModal = (props: EditProductModalProps): JSX.Element => {
               <li key={index}>
                 <label>
                   <input
-                    style={{ accentColor: "#fbca06"}}
+                    style={{ accentColor: "#fbca06" }}
                     type="checkbox"
                     value={modification}
                     checked={selectedModifications[modification] || false}
@@ -78,7 +88,7 @@ const EditProductModal = (props: EditProductModalProps): JSX.Element => {
               </li>
             ))}
           </ul>
-          <QuantityButton onChange={handleQuantityChange} />
+          <QuantityButton value={quantity} onChange={setQuantity} />
         </div>
       </>
     </BaseModal>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginButton, CartButton } from "../components/NavigationButtons";
 import { ProductList } from "../components/ProductList";
-import "../styles/App.css";
-import "../styles/main_page.css";
 import { Product } from "../components/ProductItem";
 import { ChoosePlaceModal } from "../components/ChoosePlaceModal";
 import { OrderContext, PlaceType } from "../context/OrderContext";
-import { useNavigate } from "react-router-dom";
+import "../styles/App.css";
+import "../styles/main_page.css";
 
 const MenuPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -51,23 +51,19 @@ const MenuPage: React.FC = () => {
     []
   );
 
-  useEffect(() => {
-    const fetchProductTypes = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/types");
-        const data = await response.json();
-        setProductTypes(data.types || []);
-      } catch (error) {
-        console.error("Error fetching product types:", error);
-      }
-    };
-
-    fetchProductTypes();
+  const fetchProductTypes = useCallback(async () => {
+    try {
+      const response = await fetch("http://localhost:5000/types");
+      const data = await response.json();
+      setProductTypes(data.types || []);
+    } catch (error) {
+      console.error("Error fetching product types:", error);
+    }
   }, []);
 
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, [fetchProducts]);
+  useEffect(() => {
+    fetchProductTypes();
+  }, [fetchProductTypes]);
 
   useEffect(() => {
     fetchProducts();
@@ -76,17 +72,15 @@ const MenuPage: React.FC = () => {
   const handleSave = (place: PlaceType) => {
     setPlace(place);
     setModalVisible(false);
-    
   };
 
   const handlePlaceModalClose = () => {
     setModalVisible(false);
-    navigate('/');
+    navigate("/");
   };
-  
 
   return (
-    <div className="menu-page">
+    <div className="main-page">
       <div className="main-header">
         <img
           src="images/logo.png"

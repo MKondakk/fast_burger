@@ -1,17 +1,18 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { Product } from "../components/ProductItem";
 
-export interface OrderItem {
+export interface IOrderItem {
   product: Product;
   modifications: Record<string, boolean>;
   quantity: number;
 }
 export type PlaceType = "eatIn" | "takeAway" | null;
 interface IOrderContext {
-  order: OrderItem[];
+  order: IOrderItem[];
   chosenPlace: PlaceType;
   setPlace: (value: PlaceType) => void;
-  addToOrder: (product: OrderItem) => void;
+  addToOrder: (product: IOrderItem) => void;
+  updateOrder: (index: number, updatedOrderItem: IOrderItem) => void;
   removeFromOrder: (index: number) => void;
   clearOrder: () => void;
 }
@@ -23,10 +24,35 @@ interface OrderProviderProps {
 }
 
 export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
-  const [order, setOrder] = useState<OrderItem[]>([]);
+  const [order, setOrder] = useState<IOrderItem[]>([]);
   const [chosenPlace, setChosenPlace] = useState<PlaceType>(null);
-  const addToOrder = (product: OrderItem) => {
-    setOrder((prevOrder) => [...prevOrder, product]);
+
+  const addToOrder = (product: IOrderItem) => {
+    setOrder((prevOrder) => {
+      const existingIndex = prevOrder.findIndex(
+        (item) =>
+          item.product._id === product.product._id &&
+          JSON.stringify(item.modifications) ===
+            JSON.stringify(product.modifications)
+      );
+      if (existingIndex !== -1) {
+        const updatedOrder = [...prevOrder];
+        updatedOrder[existingIndex].quantity += product.quantity;
+        return updatedOrder;
+      } else {
+        return [...prevOrder, product];
+      }
+    });
+  };
+
+  const updateOrder = (index: number, updatedOrderItem: IOrderItem) => {
+    setOrder((prevOrder) => {
+      const updatedOrder = [...prevOrder];
+
+      updatedOrder[index] = updatedOrderItem;
+
+      return updatedOrder;
+    });
   };
 
   const removeFromOrder = (index: number) => {
@@ -36,16 +62,24 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
       return newOrder;
     });
   };
-  const setPlace = (value: PlaceType) =>{
+  const setPlace = (value: PlaceType) => {
     setChosenPlace(value);
-  }
+  };
   const clearOrder = () => {
     setOrder([]);
   };
 
   return (
     <OrderContext.Provider
-      value={{ order, chosenPlace, setPlace, addToOrder, removeFromOrder, clearOrder }}
+      value={{
+        order,
+        chosenPlace,
+        setPlace,
+        addToOrder,
+        removeFromOrder,
+        updateOrder,
+        clearOrder,
+      }}
     >
       {children}
     </OrderContext.Provider>

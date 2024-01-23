@@ -12,15 +12,20 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  /* background: url("../../public/images/burgers_background.jpg"); */
+  background: url("../../public/images/burgers_background.jpg");
   background-repeat: repeat;
   background-position: 0 0;
   background-size: auto;
   animation: animatedBackground 500s linear infinite;
+  z-index: -9999;
+}
+
+.container {
   display: flex;
   align-content: center;
   align-items: center;
   justify-content: center;
+  position:relative;
 }
 
 @keyframes animatedBackground {
@@ -32,3 +37,15 @@ body {
   }
 }
 
+.main-page {
+  padding: 3%;
+  margin: 50px;
+  border: 10px solid #fdc300;
+  background-color: white;
+  max-width: 70%;
+  width: 100%;
+  text-align: center;
+  height: 75vh;
+  max-height: 100%;
+  overflow-y: auto;
+}
