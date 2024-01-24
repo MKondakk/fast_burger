@@ -5,6 +5,7 @@ import { calculateItemPrice } from "../utils/calculateItemPrice";
 import { EditProductModal } from "./EditProductModal";
 import "../styles/cart-page.css";
 
+
 interface OrderListProps {
   onRemove: (index: number) => void;
   onUpdate: (index: number, updatedOrderItem: IOrderItem) => void;

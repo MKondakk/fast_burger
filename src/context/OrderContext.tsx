@@ -6,7 +6,7 @@ export interface IOrderItem {
   modifications: Record<string, boolean>;
   quantity: number;
 }
-export type PlaceType = "eatIn" | "takeAway" | null;
+export type PlaceType = "eat-in" | "take-away" | null;
 interface IOrderContext {
   order: IOrderItem[];
   chosenPlace: PlaceType;

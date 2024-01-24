@@ -12,12 +12,12 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background: url("../../public/images/burgers_background.jpg");
+  /* background: url("../../public/images/burgers_background.jpg"); */
   background-repeat: repeat;
   background-position: 0 0;
   background-size: auto;
   animation: animatedBackground 500s linear infinite;
-  z-index: -9999;
+  z-index: -999;
 }
 
 .container {

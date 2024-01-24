@@ -5,15 +5,22 @@ import "../styles/cart-page.css";
 import "../styles/App.css";
 
 const CartPage = () => {
-  const { order, removeFromOrder, updateOrder } = useContext(OrderContext)!;
+  const { order, removeFromOrder, updateOrder, chosenPlace } =
+    useContext(OrderContext)!;
 
   return (
     <div className="main-page cart-page">
-      <OrderList
-        order={order}
-        onRemove={removeFromOrder}
-        onUpdate={updateOrder}
-      />
+      <div className="order-container">
+        <OrderList
+          order={order}
+          onRemove={removeFromOrder}
+          onUpdate={updateOrder}
+        />
+        <div className="chosen-place-container">
+          <h2>Chosen Place:</h2>
+          <p>{chosenPlace}</p>
+        </div>
+      </div>
     </div>
   );
 };

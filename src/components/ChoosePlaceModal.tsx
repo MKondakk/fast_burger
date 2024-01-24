@@ -19,7 +19,7 @@ const ChoosePlaceModal: React.FC<ChoosePlaceModalProps> = ({
     useState<PlaceType>(chosenPlace);
 
   const handleOptionClick = useCallback(
-    (place: "eatIn" | "takeAway") => {
+    (place: "eat-in" | "take-away") => {
       setChosenPlaceState(place);
     },
     [setChosenPlaceState]
@@ -39,14 +39,14 @@ const ChoosePlaceModal: React.FC<ChoosePlaceModalProps> = ({
       <div className="choose-place-container">
         <label
           className={`radio-label ${
-            chosenPlaceState === "eatIn" ? "selected" : ""
+            chosenPlaceState === "eat-in" ? "selected" : ""
           }`}
         >
           <input
             type="radio"
             name="placeOption"
-            checked={chosenPlaceState === "eatIn"}
-            onChange={() => handleOptionClick("eatIn")}
+            checked={chosenPlaceState === "eat-in"}
+            onChange={() => handleOptionClick("eat-in")}
           />
           <div className="image-container">
             <img src="./images/eat-in.png" alt="Eat In" />
@@ -55,14 +55,14 @@ const ChoosePlaceModal: React.FC<ChoosePlaceModalProps> = ({
         </label>
         <label
           className={`radio-label ${
-            chosenPlaceState === "takeAway" ? "selected" : ""
+            chosenPlaceState === "take-away" ? "selected" : ""
           }`}
         >
           <input
             type="radio"
             name="placeOption"
-            checked={chosenPlaceState === "takeAway"}
-            onChange={() => handleOptionClick("takeAway")}
+            checked={chosenPlaceState === "take-away"}
+            onChange={() => handleOptionClick("take-away")}
           />
           <div className="image-container">
             <img src="./images/take-away.png" alt="Take Away" />
