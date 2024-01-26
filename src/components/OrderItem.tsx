@@ -20,7 +20,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ orderItem }) => {
         <p>Added modifications:</p>
         {Object.entries(modifications).map(
           ([modification, isSelected]) =>
-            isSelected && <p key={modification}>{modification}</p>
+            isSelected && <p key={modification}>{modification}</p>,
         )}
       </div>
       <div className="order-item-column">

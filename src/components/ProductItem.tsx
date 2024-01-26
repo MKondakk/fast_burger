@@ -18,7 +18,10 @@ interface ProductItemProps {
   product: Product;
   onProductUpdate: () => void;
 }
-const ProductItem: React.FC<ProductItemProps> = ({ product, onProductUpdate }) => {
+const ProductItem: React.FC<ProductItemProps> = ({
+  product,
+  onProductUpdate,
+}) => {
   const { addToOrder } = useContext(OrderContext)!;
   const userCtx = useContext(UserContext);
 
@@ -46,51 +49,61 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onProductUpdate }) =
 
       handleCustomiseClose();
     },
-    [addToOrder, handleCustomiseClose]
+    [addToOrder, handleCustomiseClose],
   );
 
-  const AddButton = useMemo(() => (
-    <button
-      className="small-button yellow-button"
-      onClick={handleAddButtonClick}
-      disabled={addButtonDisable}
-    >
-      Add
-    </button>
-  ), [addButtonDisable, handleAddButtonClick])
+  const AddButton = useMemo(
+    () => (
+      <button
+        className="small-button yellow-button"
+        onClick={handleAddButtonClick}
+        disabled={addButtonDisable}
+      >
+        Add
+      </button>
+    ),
+    [addButtonDisable, handleAddButtonClick],
+  );
 
-  const EditButton = useMemo(() => (
-    <button
-      className="small-button yellow-button"
-      onClick={handleProductEdit}
-    >
-      Edit
-    </button>
-  ), [handleProductEdit])
+  const EditButton = useMemo(
+    () => (
+      <button
+        className="small-button yellow-button"
+        onClick={handleProductEdit}
+      >
+        Edit
+      </button>
+    ),
+    [handleProductEdit],
+  );
 
-  const handleEditSubmit = useCallback(async (values: { name: string; price: number; type: string; }) => {
-    try {
-      const response = await fetch(`http://localhost:5000/products/${product._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+  const handleEditSubmit = useCallback(
+    async (values: { name: string; price: number; type: string }) => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/products/${product._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          },
+        );
 
-      if (!response.ok) {
-        console.error("Failed to update product");
+        if (!response.ok) {
+          console.error("Failed to update product");
+        }
+
+        onProductUpdate();
+      } catch (error) {
+        console.error("Error during product update:", error);
+      } finally {
+        setEditing(false);
       }
-
-      onProductUpdate();
-    } catch (error) {
-      console.error("Error during product update:", error);
-    }
-    finally {
-      setEditing(false);
-    }
-  }, [onProductUpdate, product._id]);
-
+    },
+    [onProductUpdate, product._id],
+  );
 
   // const DeleteButton = useMemo(() => (
   //   <button
@@ -108,7 +121,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onProductUpdate }) =
         alt={product.name}
         style={{ height: "150px", width: "auto" }}
       />
-      <Expression condition={!isEditing} >
+      <Expression condition={!isEditing}>
         <div>
           <p>{product.name}</p>
           <p>{product.type}</p>
@@ -116,12 +129,16 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onProductUpdate }) =
         </div>
       </Expression>
 
-      <Expression condition={isEditing} >
-        <ProductEditForm initialValues={{
-          name: product.name,
-          price: product.price,
-          type: product.type,
-        }} onSubmit={handleEditSubmit} onCancel={() => setEditing(false)} />
+      <Expression condition={isEditing}>
+        <ProductEditForm
+          initialValues={{
+            name: product.name,
+            price: product.price,
+            type: product.type,
+          }}
+          onSubmit={handleEditSubmit}
+          onCancel={() => setEditing(false)}
+        />
       </Expression>
 
       <CustomiseProductModal
@@ -131,13 +148,9 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onProductUpdate }) =
         visible={isCustomising}
       />
 
-      <Expression condition={!isEditing && isAdmin} >
-        {EditButton}
-      </Expression>
+      <Expression condition={!isEditing && isAdmin}>{EditButton}</Expression>
 
-      <Expression condition={!isEditing && !isAdmin} >
-        {AddButton}
-      </Expression>
+      <Expression condition={!isEditing && !isAdmin}>{AddButton}</Expression>
     </div>
   );
 };

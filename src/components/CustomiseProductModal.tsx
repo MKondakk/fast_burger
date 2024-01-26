@@ -10,7 +10,9 @@ export interface CustomiseProductModalProps
   onSave: (orderItem: IOrderItem) => void;
 }
 
-const CustomiseProductModal = (props: CustomiseProductModalProps): JSX.Element => {
+const CustomiseProductModal = (
+  props: CustomiseProductModalProps,
+): JSX.Element => {
   const { orderItem, visible, onClose, onSave } = props;
 
   const [modifications, setModifications] = useState<string[]>([]);
@@ -23,7 +25,7 @@ const CustomiseProductModal = (props: CustomiseProductModalProps): JSX.Element =
   const fetchModifications = useCallback(async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/modifications/${orderItem.product.type}`
+        `http://localhost:5000/modifications/${orderItem.product.type}`,
       );
       const data = await response.json();
       setModifications(data.modifications || []);

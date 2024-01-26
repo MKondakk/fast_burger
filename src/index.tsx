@@ -18,5 +18,5 @@ root.render(
         </div>
       </OrderProvider>
     </UserProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

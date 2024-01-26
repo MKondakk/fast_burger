@@ -9,7 +9,8 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("*required"),
 });
 interface LoginFormProps {
-  onSubmit: (values: { email: string; password: string }) => void; message: string
+  onSubmit: (values: { email: string; password: string }) => void;
+  message: string;
 }
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, message }) => {
   return (
@@ -36,7 +37,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, message }) => {
             render={(msg) => <div className="error-message">{msg}</div>}
           />
         </div>
-        {message && <Error message={message}/>}
+        {message && <Error message={message} />}
         <button type="submit" className="yellow-button login-button">
           Login
         </button>

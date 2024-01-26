@@ -1,9 +1,8 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginForm } from "../components/LoginForm";
 import { UserContext, IUserContext } from "../context/UserContext";
 import md5 from "md5";
-
 
 const LoginPage = () => {
   const userContext = useContext(UserContext) as IUserContext;
@@ -39,7 +38,7 @@ const LoginPage = () => {
   return (
     <div className="main-page">
       <h2>Please, login before using app</h2>
-      <LoginForm onSubmit={handleLogin} message={formError}/>
+      <LoginForm onSubmit={handleLogin} message={formError} />
     </div>
   );
 };

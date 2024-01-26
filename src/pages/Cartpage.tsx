@@ -10,9 +10,16 @@ import "../styles/cart-page.css";
 import "../styles/App.css";
 
 const CartPage = () => {
-  const { order, removeFromOrder, clearOrder, updateOrder, totalPrice, chosenPlace, setPlace } =
-    useContext(OrderContext)!;
-  const [paymentVisible, setPaymentVisible ] = useState(false);
+  const {
+    order,
+    removeFromOrder,
+    clearOrder,
+    updateOrder,
+    totalPrice,
+    chosenPlace,
+    setPlace,
+  } = useContext(OrderContext)!;
+  const [paymentVisible, setPaymentVisible] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
 
   const { user } = useContext(UserContext)!;
@@ -26,24 +33,23 @@ const CartPage = () => {
     clearOrder();
   }, [clearOrder]);
 
-  const DeleteOrderButton = useMemo(() => (
-    <button
-      className="big-button yellow-button"
-      onClick={handleOrderDelete}
-    >
-      Delete
-    </button>
-  ), [handleOrderDelete])
+  const DeleteOrderButton = useMemo(
+    () => (
+      <button className="big-button yellow-button" onClick={handleOrderDelete}>
+        Delete
+      </button>
+    ),
+    [handleOrderDelete],
+  );
 
   const handlePayment = useCallback(() => {
-   setPaymentVisible(true);
+    setPaymentVisible(true);
   }, []);
 
   const handleBuyAction = useCallback(async () => {
     try {
-      ;
       if (!user) {
-        console.error('User is not logged in');
+        console.error("User is not logged in");
         return;
       }
 
@@ -51,7 +57,7 @@ const CartPage = () => {
         userInfo: {
           name: user.name,
           email: user.email,
-          telephone: user.telephone || '',
+          telephone: user.telephone || "",
         },
         orderItems: order,
         chosenPlace,
@@ -59,10 +65,10 @@ const CartPage = () => {
         dateTime: new Date(),
       };
 
-      const response = await fetch('http://localhost:5000/orders/add', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/orders/add", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(orderData),
       });
@@ -70,23 +76,23 @@ const CartPage = () => {
       if (response.ok) {
         const order = await response.json();
         setOrderId(order?.id || null);
-        clearOrder(); 
+        clearOrder();
       } else {
-        console.error('Failed to place order');
+        console.error("Failed to place order");
       }
     } catch (error) {
-      console.error('Error handling buy action:', error);
+      console.error("Error handling buy action:", error);
     }
   }, [chosenPlace, clearOrder, order, totalPrice, user]);
 
-  const BuyButton = useMemo(() => (
-    <button
-      className="big-button yellow-button"
-      onClick={handlePayment}
-    >
-      Buy
-    </button>
-  ), [handlePayment]);
+  const BuyButton = useMemo(
+    () => (
+      <button className="big-button yellow-button" onClick={handlePayment}>
+        Buy
+      </button>
+    ),
+    [handlePayment],
+  );
 
   return (
     <div className="main-page cart-page">
@@ -96,7 +102,7 @@ const CartPage = () => {
           onRemove={removeFromOrder}
           onUpdate={updateOrder}
         />
-        <Expression condition={!!order.length} >
+        <Expression condition={!!order.length}>
           <div className="order-info-container">
             <h2> Chosen Place:</h2>
             <p>{chosenPlace}</p>
@@ -112,9 +118,22 @@ const CartPage = () => {
           </div>
         </Expression>
       </div>
-      <ChoosePlaceModal onSave={(place) => { setPlace(place); setVisible(false) }} visible={visible} onClose={() => setVisible(false)} />
-      <PaymentModal orderId={orderId} title="Payment" onClose={() =>  setPaymentVisible(false) } onSubmit={handleBuyAction} visible={paymentVisible}/>
-    </div >
+      <ChoosePlaceModal
+        onSave={(place) => {
+          setPlace(place);
+          setVisible(false);
+        }}
+        visible={visible}
+        onClose={() => setVisible(false)}
+      />
+      <PaymentModal
+        orderId={orderId}
+        title="Payment"
+        onClose={() => setPaymentVisible(false)}
+        onSubmit={handleBuyAction}
+        visible={paymentVisible}
+      />
+    </div>
   );
 };
 

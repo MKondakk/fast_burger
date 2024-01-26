@@ -32,12 +32,11 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
 
   const addToOrder = (product: IOrderItem) => {
     setOrder((prevOrder) => {
-      
       const existingIndex = prevOrder.findIndex(
         (item) =>
           item.product._id === product.product._id &&
           JSON.stringify(item.modifications) ===
-          JSON.stringify(product.modifications)
+            JSON.stringify(product.modifications),
       );
       if (existingIndex !== -1) {
         const updatedOrder = [...prevOrder];
@@ -68,12 +67,11 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
   };
   const setPlace = (value: PlaceType) => {
     setChosenPlace(value);
-
   };
 
   const setTotalPrice = (value: number) => {
     setPrice(value);
-  }
+  };
   const clearOrder = () => {
     setOrder([]);
     setChosenPlace(null);

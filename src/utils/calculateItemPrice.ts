@@ -8,6 +8,6 @@ export const calculateItemPrice = (orderItem: IOrderItem): number => {
 export const calculateTotalPrice = (order: IOrderItem[]): number => {
   return order.reduce(
     (total, orderItem) => total + calculateItemPrice(orderItem),
-    0
+    0,
   );
 };

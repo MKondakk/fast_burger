@@ -5,7 +5,6 @@ import { calculateTotalPrice } from "../utils/calculateItemPrice";
 import { CustomiseProductModal } from "./CustomiseProductModal";
 import "../styles/cart-page.css";
 
-
 interface OrderListProps {
   onRemove: (index: number) => void;
   onUpdate: (index: number, updatedOrderItem: IOrderItem) => void;
@@ -31,7 +30,6 @@ const OrderList: React.FC<OrderListProps> = ({ order, onRemove, onUpdate }) => {
     onUpdate(index, orderItem);
     handleCloseEdit();
   };
-
 
   return (
     <>

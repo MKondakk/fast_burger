@@ -39,10 +39,9 @@
 
 .img-button img {
   width: 40px;
-  height: 40px; 
+  height: 40px;
 }
 .small-button[disabled] {
   cursor: not-allowed;
   background-color: rgba(0, 0, 0, 0.15);
-
 }

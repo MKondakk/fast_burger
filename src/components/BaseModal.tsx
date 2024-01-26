@@ -23,7 +23,7 @@ const BaseModal = (props: BaseModalProps): JSX.Element => {
     onSave?.();
   }, [onSave]);
 
-  const modalClass = `modal ${visible ? 'visible' : ''}`;
+  const modalClass = `modal ${visible ? "visible" : ""}`;
 
   return (
     <div className={modalClass} id="modal">
@@ -34,7 +34,11 @@ const BaseModal = (props: BaseModalProps): JSX.Element => {
           Close
         </button>
         <Expression condition={!!onSave}>
-          <button className="small-button yellow-button" onClick={handleSave} disabled={disableSave}>
+          <button
+            className="small-button yellow-button"
+            onClick={handleSave}
+            disabled={disableSave}
+          >
             Save
           </button>
         </Expression>

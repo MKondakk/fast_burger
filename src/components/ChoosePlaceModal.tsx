@@ -22,7 +22,7 @@ const ChoosePlaceModal: React.FC<ChoosePlaceModalProps> = ({
     (place: "eat-in" | "take-away") => {
       setChosenPlaceState(place);
     },
-    [setChosenPlaceState]
+    [setChosenPlaceState],
   );
 
   const handleSave = () => {

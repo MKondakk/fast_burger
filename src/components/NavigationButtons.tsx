@@ -4,7 +4,6 @@ import { OrderContext } from "../context/OrderContext";
 import { UserContext } from "../context/UserContext";
 import "../styles/buttons.css";
 
-
 const OrderButton: React.FC = () => {
   return (
     <Link to="/menu">
@@ -20,7 +19,6 @@ const LoginButton: React.FC = () => {
     </Link>
   );
 };
-
 
 const LogoutButton: React.FC = () => {
   const userContext = useContext(UserContext);
@@ -42,7 +40,6 @@ const LogoutButton: React.FC = () => {
 
 export { LogoutButton };
 
-
 const CartButton: React.FC = () => {
   const { order } = useContext(OrderContext)!;
 
@@ -51,9 +48,7 @@ const CartButton: React.FC = () => {
       <button className="img-button">
         <img
           src={
-            order.length > 0
-              ? "images/cart_full.png"
-              : "images/cart_empty.png"
+            order.length > 0 ? "images/cart_full.png" : "images/cart_empty.png"
           }
           alt="Cart"
         />

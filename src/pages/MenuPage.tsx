@@ -1,6 +1,16 @@
-import React, { useEffect, useState, useCallback, useContext, useMemo } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+  useMemo,
+} from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginButton, LogoutButton, CartButton } from "../components/NavigationButtons";
+import {
+  LoginButton,
+  LogoutButton,
+  CartButton,
+} from "../components/NavigationButtons";
 import { ProductList } from "../components/ProductList";
 import { Product } from "../components/ProductItem";
 import { ChoosePlaceModal } from "../components/ChoosePlaceModal";
@@ -23,7 +33,6 @@ const MenuPage: React.FC = () => {
   const navigate = useNavigate();
 
   const isAdmin = useMemo(() => userCtx!.user?.role === Role.Admin, [userCtx]);
-
 
   const fetchProducts = useCallback(
     async (searchTerm?: string, sortOption?: string, filterOption?: string) => {
@@ -55,7 +64,7 @@ const MenuPage: React.FC = () => {
         console.error("Error fetching product data:", error);
       }
     },
-    []
+    [],
   );
 
   const fetchProductTypes = useCallback(async () => {
@@ -125,16 +134,15 @@ const MenuPage: React.FC = () => {
           </button>
         </div>
         <CartButton />
-        {userContext!.user ? (
-          <LogoutButton />
-        ) : (
-          <LoginButton />
-        )}
+        {userContext!.user ? <LogoutButton /> : <LoginButton />}
       </div>
-      <ProductList products={products} onProductUpdate={() => {
-        fetchProducts();
-        fetchProductTypes();
-      }}/>
+      <ProductList
+        products={products}
+        onProductUpdate={() => {
+          fetchProducts();
+          fetchProductTypes();
+        }}
+      />
 
       <Expression condition={!isAdmin}>
         <ChoosePlaceModal
