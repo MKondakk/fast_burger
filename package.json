@@ -13,7 +13,9 @@
   },
   "scripts": {
     "start": "webpack serve --open",
-    "build": "webpack --config webpack.config.js --mode production",
+    "copyAssets": "node -e \"require('fs').cpSync('./public/images', './dist/images', {recursive: true});\"",
+    "bundle": "webpack --config webpack.config.js --mode production",
+    "build": "npm run bundle && npm run copyAssets",
     "serve": "serve dist/",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "npm run lint -- --fix",
