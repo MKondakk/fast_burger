@@ -8,14 +8,13 @@
   margin: auto;
 }
 
-.filter{
+.filter {
   margin: auto;
 }
 
-.filter *{
+.filter * {
   font-size: 1rem;
   margin-left: 5px;
-
 }
 
 .product-list {
@@ -26,12 +25,12 @@
 }
 
 .product-item:hover {
-    background-color: rgba(128, 128, 128, 0.214);
+  background-color: rgba(128, 128, 128, 0.214);
 }
 
 .choose-place-container {
   display: flex;
-  gap: 10px; 
+  gap: 10px;
   padding-bottom: 10px;
 }
 
@@ -55,5 +54,5 @@
 }
 
 .radio-label.selected {
-  background: rgba(0, 0, 0, 0.15); 
+  background: rgba(0, 0, 0, 0.15);
 }

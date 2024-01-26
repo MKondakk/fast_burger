@@ -4,13 +4,13 @@ import { QuantityButton } from "./QuantityButton";
 import "../styles/main_page.css";
 import { IOrderItem } from "../context/OrderContext";
 
-export interface EditProductModalProps
+export interface CustomiseProductModalProps
   extends Pick<BaseModalProps, "onClose" | "visible"> {
   orderItem: IOrderItem;
   onSave: (orderItem: IOrderItem) => void;
 }
 
-const EditProductModal = (props: EditProductModalProps): JSX.Element => {
+const CustomiseProductModal = (props: CustomiseProductModalProps): JSX.Element => {
   const { orderItem, visible, onClose, onSave } = props;
 
   const [modifications, setModifications] = useState<string[]>([]);
@@ -95,4 +95,4 @@ const EditProductModal = (props: EditProductModalProps): JSX.Element => {
   );
 };
 
-export { EditProductModal };
+export { CustomiseProductModal };

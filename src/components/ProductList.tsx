@@ -12,13 +12,14 @@ interface Product {
 
 interface ProductListProps {
   products: Product[];
+  onProductUpdate: () => void;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ products }) => {
+const ProductList: React.FC<ProductListProps> = ({ products, onProductUpdate }) => {
   return (
     <div className="product-list">
       {products.map((product) => (
-        <ProductItem key={product._id} product={product} />
+        <ProductItem key={product._id} product={product} onProductUpdate={onProductUpdate} />
       ))}
     </div>
   );

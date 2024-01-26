@@ -10,6 +10,8 @@ export type PlaceType = "eat-in" | "take-away" | null;
 interface IOrderContext {
   order: IOrderItem[];
   chosenPlace: PlaceType;
+  totalPrice: number;
+  setTotalPrice: (value: number) => void;
   setPlace: (value: PlaceType) => void;
   addToOrder: (product: IOrderItem) => void;
   updateOrder: (index: number, updatedOrderItem: IOrderItem) => void;
@@ -26,14 +28,16 @@ interface OrderProviderProps {
 export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
   const [order, setOrder] = useState<IOrderItem[]>([]);
   const [chosenPlace, setChosenPlace] = useState<PlaceType>(null);
+  const [totalPrice, setPrice] = useState(0);
 
   const addToOrder = (product: IOrderItem) => {
     setOrder((prevOrder) => {
+      
       const existingIndex = prevOrder.findIndex(
         (item) =>
           item.product._id === product.product._id &&
           JSON.stringify(item.modifications) ===
-            JSON.stringify(product.modifications)
+          JSON.stringify(product.modifications)
       );
       if (existingIndex !== -1) {
         const updatedOrder = [...prevOrder];
@@ -64,9 +68,15 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
   };
   const setPlace = (value: PlaceType) => {
     setChosenPlace(value);
+
   };
+
+  const setTotalPrice = (value: number) => {
+    setPrice(value);
+  }
   const clearOrder = () => {
     setOrder([]);
+    setChosenPlace(null);
   };
 
   return (
@@ -74,6 +84,8 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
       value={{
         order,
         chosenPlace,
+        totalPrice,
+        setTotalPrice,
         setPlace,
         addToOrder,
         removeFromOrder,

@@ -1,11 +1,18 @@
-import React from "react";
+import React, {useContext, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginForm } from "../components/LoginForm";
+import { UserContext, IUserContext } from "../context/UserContext";
 import md5 from "md5";
 
+
 const LoginPage = () => {
+  const userContext = useContext(UserContext) as IUserContext;
+  const [formError, setFormError] = useState("");
+  const navigate = useNavigate();
   const handleLogin = async (values: { email: string; password: string }) => {
     try {
       const hashedPassword = md5(values.password);
+      console.log(hashedPassword);
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: {
@@ -19,9 +26,10 @@ const LoginPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        userContext.setUser(data);
+        navigate("/menu");
       } else {
-        console.error("Invalid credentials");
+        setFormError("Invalid credentials");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -31,7 +39,7 @@ const LoginPage = () => {
   return (
     <div className="main-page">
       <h2>Please, login before using app</h2>
-      <LoginForm onSubmit={handleLogin} />
+      <LoginForm onSubmit={handleLogin} message={formError}/>
     </div>
   );
 };

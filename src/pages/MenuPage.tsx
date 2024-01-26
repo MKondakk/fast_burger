@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useCallback, useContext } from "react";
+import React, { useEffect, useState, useCallback, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginButton, CartButton } from "../components/NavigationButtons";
+import { LoginButton, LogoutButton, CartButton } from "../components/NavigationButtons";
 import { ProductList } from "../components/ProductList";
 import { Product } from "../components/ProductItem";
 import { ChoosePlaceModal } from "../components/ChoosePlaceModal";
 import { OrderContext, PlaceType } from "../context/OrderContext";
+import { Role, UserContext } from "../context/UserContext";
 import "../styles/App.css";
 import "../styles/main_page.css";
+import { Expression } from "../components/expression";
 
 const MenuPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -16,7 +18,12 @@ const MenuPage: React.FC = () => {
   const [productTypes, setProductTypes] = useState([]);
   const { chosenPlace, setPlace } = useContext(OrderContext)!;
   const [modalVisible, setModalVisible] = useState(!chosenPlace);
+  const userContext = useContext(UserContext);
+  const userCtx = useContext(UserContext);
   const navigate = useNavigate();
+
+  const isAdmin = useMemo(() => userCtx!.user?.role === Role.Admin, [userCtx]);
+
 
   const fetchProducts = useCallback(
     async (searchTerm?: string, sortOption?: string, filterOption?: string) => {
@@ -118,14 +125,24 @@ const MenuPage: React.FC = () => {
           </button>
         </div>
         <CartButton />
-        <LoginButton />
+        {userContext!.user ? (
+          <LogoutButton />
+        ) : (
+          <LoginButton />
+        )}
       </div>
-      <ProductList products={products} />
-      <ChoosePlaceModal
-        visible={modalVisible}
-        onSave={handleSave}
-        onClose={handlePlaceModalClose}
-      />
+      <ProductList products={products} onProductUpdate={() => {
+        fetchProducts();
+        fetchProductTypes();
+      }}/>
+
+      <Expression condition={!isAdmin}>
+        <ChoosePlaceModal
+          visible={modalVisible}
+          onSave={handleSave}
+          onClose={handlePlaceModalClose}
+        />
+      </Expression>
     </div>
   );
 };

@@ -1,14 +1,15 @@
 import React, { ReactNode, useCallback } from "react";
 import "../styles/modal.css";
 import "../styles/buttons.css";
+import { Expression } from "./expression";
 
 export interface BaseModalProps {
   title: string;
   children: ReactNode | ReactNode[];
   onClose: () => void;
-  onSave: () => void;
+  onSave?: () => void;
   visible: boolean;
-  disableSave?: boolean; 
+  disableSave?: boolean;
 }
 
 const BaseModal = (props: BaseModalProps): JSX.Element => {
@@ -19,7 +20,7 @@ const BaseModal = (props: BaseModalProps): JSX.Element => {
   }, [onClose]);
 
   const handleSave = useCallback(() => {
-    onSave();
+    onSave?.();
   }, [onSave]);
 
   const modalClass = `modal ${visible ? 'visible' : ''}`;
@@ -32,9 +33,11 @@ const BaseModal = (props: BaseModalProps): JSX.Element => {
         <button className="small-button yellow-button" onClick={handleClose}>
           Close
         </button>
-        <button className="small-button yellow-button" onClick={handleSave}  disabled={disableSave}>
-          Save
-        </button>
+        <Expression condition={!!onSave}>
+          <button className="small-button yellow-button" onClick={handleSave} disabled={disableSave}>
+            Save
+          </button>
+        </Expression>
       </div>
     </div>
   );

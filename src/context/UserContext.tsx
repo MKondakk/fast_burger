@@ -1,15 +1,19 @@
 import React, { createContext, useState, ReactNode } from "react";
 
-export interface User {
-    id: string;
-    name: string;
-    email: string;
-    role: string; 
-    address?: string; 
-    telephone?: string; 
-  }
+export enum Role {
+  Client = "client",
+  Admin = "admin",
+}
 
-interface IUserContext {
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: Role;
+  telephone?: string;
+}
+
+export interface IUserContext {
   user: User | null;
   setUser: (user: User | null) => void;
 }

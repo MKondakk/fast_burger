@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Error } from "../components/Error";
 import * as Yup from "yup";
 import "../styles/login.css";
 
@@ -8,9 +9,9 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("*required"),
 });
 interface LoginFormProps {
-  onSubmit: (values: { email: string; password: string }) => void;
+  onSubmit: (values: { email: string; password: string }) => void; message: string
 }
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, message }) => {
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -23,8 +24,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           <Field type="email" id="email" name="email" />
           <ErrorMessage
             name="email"
-            component="div"
-            className="error-message"
+            render={(msg) => <div className="error-message">{msg}</div>}
           />
         </div>
 
@@ -33,10 +33,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           <Field type="password" id="password" name="password" />
           <ErrorMessage
             name="password"
-            component="div"
-            className="error-message"
+            render={(msg) => <div className="error-message">{msg}</div>}
           />
         </div>
+        {message && <Error message={message}/>}
         <button type="submit" className="yellow-button login-button">
           Login
         </button>

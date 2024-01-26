@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { IOrderItem } from "../context/OrderContext";
 import { OrderItem } from "./OrderItem";
-import { calculateItemPrice } from "../utils/calculateItemPrice";
-import { EditProductModal } from "./EditProductModal";
+import { calculateTotalPrice } from "../utils/calculateItemPrice";
+import { CustomiseProductModal } from "./CustomiseProductModal";
 import "../styles/cart-page.css";
 
 
@@ -32,12 +32,6 @@ const OrderList: React.FC<OrderListProps> = ({ order, onRemove, onUpdate }) => {
     handleCloseEdit();
   };
 
-  const calculateTotalPrice = (): number => {
-    return order.reduce(
-      (total, orderItem) => total + calculateItemPrice(orderItem),
-      0
-    );
-  };
 
   return (
     <>
@@ -65,7 +59,7 @@ const OrderList: React.FC<OrderListProps> = ({ order, onRemove, onUpdate }) => {
                   </button>
                 </div>
 
-                <EditProductModal
+                <CustomiseProductModal
                   orderItem={orderItem}
                   onSave={(orderItem) => handleSaveEdit(index, orderItem)}
                   onClose={handleCloseEdit}
@@ -74,7 +68,7 @@ const OrderList: React.FC<OrderListProps> = ({ order, onRemove, onUpdate }) => {
               </div>
             ))}
             <div id="total-price">
-              <p>Total Price: ${calculateTotalPrice().toFixed(2)}</p>
+              <p>Total Price: ${calculateTotalPrice(order).toFixed(2)}</p>
             </div>
           </>
         )}

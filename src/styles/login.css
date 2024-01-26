@@ -23,3 +23,7 @@
   font-size: 1.25rem;
   padding: 5px 10px;
 }
+#email, #password{
+  border: 1px solid black;
+  ;
+}
