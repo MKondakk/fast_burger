@@ -3,6 +3,7 @@ import { BaseModal, BaseModalProps } from "./BaseModal";
 import { QuantityButton } from "./QuantityButton";
 import "../styles/main_page.css";
 import { IOrderItem } from "../context/OrderContext";
+import { getEndpoint } from "../utils/getEndpoint";
 
 export interface CustomiseProductModalProps
   extends Pick<BaseModalProps, "onClose" | "visible"> {
@@ -11,7 +12,7 @@ export interface CustomiseProductModalProps
 }
 
 const CustomiseProductModal = (
-  props: CustomiseProductModalProps,
+  props: CustomiseProductModalProps
 ): JSX.Element => {
   const { orderItem, visible, onClose, onSave } = props;
 
@@ -25,7 +26,7 @@ const CustomiseProductModal = (
   const fetchModifications = useCallback(async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/modifications/${orderItem.product.type}`,
+        `${getEndpoint()}/modifications/${orderItem.product.type}`
       );
       const data = await response.json();
       setModifications(data.modifications || []);

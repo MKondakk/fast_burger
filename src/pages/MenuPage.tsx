@@ -19,6 +19,7 @@ import { Role, UserContext } from "../context/UserContext";
 import "../styles/App.css";
 import "../styles/main_page.css";
 import { Expression } from "../components/expression";
+import { getEndpoint } from "../utils/getEndpoint";
 
 const MenuPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -37,7 +38,7 @@ const MenuPage: React.FC = () => {
   const fetchProducts = useCallback(
     async (searchTerm?: string, sortOption?: string, filterOption?: string) => {
       try {
-        let url = "http://localhost:5000/products";
+        let url = `${getEndpoint()}/products`;
 
         const params = new URLSearchParams();
 
@@ -69,7 +70,7 @@ const MenuPage: React.FC = () => {
 
   const fetchProductTypes = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:5000/types");
+      const response = await fetch(`${getEndpoint()}/types`);
       const data = await response.json();
       setProductTypes(data.types || []);
     } catch (error) {

@@ -8,6 +8,7 @@ import { ChoosePlaceModal } from "../components/ChoosePlaceModal";
 import PaymentModal from "../components/PaymentModal";
 import "../styles/cart-page.css";
 import "../styles/App.css";
+import { getEndpoint } from "../utils/getEndpoint";
 
 const CartPage = () => {
   const {
@@ -65,7 +66,7 @@ const CartPage = () => {
         dateTime: new Date(),
       };
 
-      const response = await fetch("http://localhost:5000/orders/add", {
+      const response = await fetch(`${getEndpoint()}/orders/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

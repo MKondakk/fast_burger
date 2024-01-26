@@ -5,6 +5,7 @@ import { OrderContext, IOrderItem } from "../context/OrderContext";
 import { Role, UserContext } from "../context/UserContext";
 import "../styles/buttons.css";
 import { Expression } from "./expression";
+import { getEndpoint } from "../utils/getEndpoint";
 
 export interface Product {
   _id: string;
@@ -81,7 +82,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
     async (values: { name: string; price: number; type: string }) => {
       try {
         const response = await fetch(
-          `http://localhost:5000/products/${product._id}`,
+          `${getEndpoint()}/products/${product._id}`,
           {
             method: "PUT",
             headers: {

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginForm } from "../components/LoginForm";
 import { UserContext, IUserContext } from "../context/UserContext";
 import md5 from "md5";
+import { getEndpoint } from "../utils/getEndpoint";
 
 const LoginPage = () => {
   const userContext = useContext(UserContext) as IUserContext;
@@ -11,8 +12,7 @@ const LoginPage = () => {
   const handleLogin = async (values: { email: string; password: string }) => {
     try {
       const hashedPassword = md5(values.password);
-      console.log(hashedPassword);
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch(`${getEndpoint()}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
