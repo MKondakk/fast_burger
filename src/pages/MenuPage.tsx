@@ -134,7 +134,7 @@ const MenuPage: React.FC = () => {
           </button>
         </div>
         <CartButton />
-        {userContext!.user ? <LogoutButton /> : <LoginButton />}
+        {userCtx!.user ? <LogoutButton /> : <LoginButton />}
       </div>
       <ProductList
         products={products}

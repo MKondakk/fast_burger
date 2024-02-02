@@ -13,9 +13,8 @@
   },
   "scripts": {
     "start": "webpack serve --open",
-    "copyAssets": "node -e \"require('fs').cpSync('./public/images', './dist/images', {recursive: true});\"",
     "bundle": "webpack --config webpack.config.js --mode production",
-    "build": "npm run bundle && npm run copyAssets",
+    "build": "rm -rf dist && npm run bundle",
     "serve": "serve dist/",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "npm run lint -- --fix",
@@ -41,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
     "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.9.1",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.56.0",
