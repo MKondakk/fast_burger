@@ -21,7 +21,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
         <BlikForm onSubmit={onSubmit} />
       </Expression>
 
-      <Expression condition={!!orderId}>Congrats, {orderId}.</Expression>
+      <Expression condition={!!orderId}>Your order number: {orderId}.</Expression>
     </BaseModal>
   );
 };

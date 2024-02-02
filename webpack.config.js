@@ -8,6 +8,10 @@ module.exports = {
   output: {
     filename: "main.[fullhash].js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -32,11 +36,6 @@ module.exports = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        exclude: /node_modules/,
-        use: ["file-loader"],
       },
     ],
   },

@@ -15,3 +15,7 @@
 .modal.visible {
   display: block;
 }
+
+.error{
+  color: red;
+}

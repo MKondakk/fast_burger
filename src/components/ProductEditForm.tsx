@@ -1,11 +1,13 @@
 import React from "react";
-import { useFormik } from "formik";
+import { ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
+import "../styles/buttons.css";
+import "../styles/main_page.css";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  price: Yup.number().required("Price is required"),
-  type: Yup.string().required("Type is required"),
+  name: Yup.string().required("*name is required"),
+  price: Yup.number().required("*price is required"),
+  type: Yup.string().required("*type is required"),
 });
 interface ProductEditFormProps {
   initialValues: {
@@ -31,9 +33,9 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className="product-edit-form">
       <div>
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name">Name: </label>
         <input
           type="text"
           id="name"
@@ -48,7 +50,7 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
       </div>
 
       <div>
-        <label htmlFor="price">Price:</label>
+        <label htmlFor="price">Price: </label>
         <input
           type="number"
           id="price"
@@ -63,7 +65,7 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
       </div>
 
       <div>
-        <label htmlFor="type">Type:</label>
+        <label htmlFor="type">Type: </label>
         <input
           type="text"
           id="type"
@@ -77,8 +79,8 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
           <div>{formik.errors.type}</div>
         )}
       </div>
-      <button type="submit">Save</button>
-      <button type="button" onClick={onCancel}>
+      <button type="submit" className="small-button yellow-button">Save</button>
+      <button type="button" onClick={onCancel} className="small-button yellow-button">
         Cancel
       </button>
     </form>

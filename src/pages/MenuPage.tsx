@@ -29,7 +29,6 @@ const MenuPage: React.FC = () => {
   const [productTypes, setProductTypes] = useState([]);
   const { chosenPlace, setPlace } = useContext(OrderContext)!;
   const [modalVisible, setModalVisible] = useState(!chosenPlace);
-  const userContext = useContext(UserContext);
   const userCtx = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -70,7 +69,7 @@ const MenuPage: React.FC = () => {
 
   const fetchProductTypes = useCallback(async () => {
     try {
-      const response = await fetch(`${getEndpoint()}/types`);
+      const response = await fetch(`${getEndpoint}/types`);
       const data = await response.json();
       setProductTypes(data.types || []);
     } catch (error) {

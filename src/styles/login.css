@@ -1,3 +1,14 @@
+.login-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-page h2{
+  margin-bottom: 250px;
+}
+
+
 .form-container {
   margin: auto;
   position: fixed;
@@ -27,3 +38,4 @@
 #password {
   border: 1px solid black;
 }
+

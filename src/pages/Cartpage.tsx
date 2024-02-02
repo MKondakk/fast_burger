@@ -6,9 +6,9 @@ import { UserInfo } from "../components/UserInfo";
 import { UserContext } from "../context/UserContext";
 import { ChoosePlaceModal } from "../components/ChoosePlaceModal";
 import PaymentModal from "../components/PaymentModal";
+import { getEndpoint } from "../utils/getEndpoint";
 import "../styles/cart-page.css";
 import "../styles/App.css";
-import { getEndpoint } from "../utils/getEndpoint";
 
 const CartPage = () => {
   const {
@@ -22,6 +22,7 @@ const CartPage = () => {
   } = useContext(OrderContext)!;
   const [paymentVisible, setPaymentVisible] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [title, setTitle] = useState("Payment");
 
   const { user } = useContext(UserContext)!;
 
@@ -78,13 +79,14 @@ const CartPage = () => {
         const order = await response.json();
         setOrderId(order?.id || null);
         clearOrder();
+        setTitle("Thank you!");
       } else {
         console.error("Failed to place order");
       }
     } catch (error) {
       console.error("Error handling buy action:", error);
     }
-  }, [chosenPlace, clearOrder, order, totalPrice, user]);
+  }, [chosenPlace, clearOrder, order, totalPrice, user, title]);
 
   const BuyButton = useMemo(
     () => (
@@ -114,8 +116,10 @@ const CartPage = () => {
               Edit
             </button>
             <UserInfo user={user!} />
-            {DeleteOrderButton}
-            {BuyButton}
+            <div className="complete-order">
+              {DeleteOrderButton}
+              {BuyButton}
+            </div>
           </div>
         </Expression>
       </div>
@@ -129,7 +133,7 @@ const CartPage = () => {
       />
       <PaymentModal
         orderId={orderId}
-        title="Payment"
+        title={title}
         onClose={() => setPaymentVisible(false)}
         onSubmit={handleBuyAction}
         visible={paymentVisible}

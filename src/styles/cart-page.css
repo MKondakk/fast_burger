@@ -41,3 +41,6 @@
   font-weight: bold;
   text-align: end;
 }
+.complete-order button{
+  margin-right: 10px;
+}

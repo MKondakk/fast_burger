@@ -1,9 +1,10 @@
+import React from "react";
 import { useCallback, useState, useEffect } from "react";
 import { BaseModal, BaseModalProps } from "./BaseModal";
 import { QuantityButton } from "./QuantityButton";
-import "../styles/main_page.css";
 import { IOrderItem } from "../context/OrderContext";
 import { getEndpoint } from "../utils/getEndpoint";
+import "../styles/main_page.css";
 
 export interface CustomiseProductModalProps
   extends Pick<BaseModalProps, "onClose" | "visible"> {

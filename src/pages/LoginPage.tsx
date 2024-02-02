@@ -36,7 +36,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="main-page">
+    <div className="main-page login-page">
+      
       <h2>Please, login before using app</h2>
       <LoginForm onSubmit={handleLogin} message={formError} />
     </div>
