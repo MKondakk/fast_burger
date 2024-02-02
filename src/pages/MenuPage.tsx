@@ -69,7 +69,7 @@ const MenuPage: React.FC = () => {
 
   const fetchProductTypes = useCallback(async () => {
     try {
-      const response = await fetch(`${getEndpoint}/types`);
+      const response = await fetch(`${getEndpoint()}/types`);
       const data = await response.json();
       setProductTypes(data.types || []);
     } catch (error) {
